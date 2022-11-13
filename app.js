@@ -2,18 +2,16 @@ const express = require("express");
 const app = express();
 const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
+const notFound = require("./middleware/not-found");
 require("dotenv").config();
 
 //middleware
-
+app.use(express.static("./public"));
 app.use(express.json());
 
 //routes
-app.get("/hello", (req, res) => {
-  res.send("Task Manager");
-});
-
 app.use("/api/v1/tasks", tasks);
+app.use(notFound);
 
 //app.get('/api/v1/tasks')    - get all the tasks
 //app.post('/api/v1/tasks')   - create a new task
@@ -34,4 +32,4 @@ const start = async () => {
 
 start();
 
-// 2:06:00
+// 2:45:00
